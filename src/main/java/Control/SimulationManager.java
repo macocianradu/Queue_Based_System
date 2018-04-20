@@ -15,8 +15,6 @@ public class SimulationManager implements Runnable {
     private Strategy strategy;
     private int avgWaitingTime;
 
-    private boolean done;
-
     static SimulationFrame window;
 
     private int currentTime;
@@ -36,7 +34,6 @@ public class SimulationManager implements Runnable {
         this.strategy = Strategy.valueOf(strategy);
         this.scheduler = new Scheduler(nrServers);
         this.currentTime = 0;
-        done = false;
     }
 
     public void generateRandomTasks(int n){
@@ -65,7 +62,7 @@ public class SimulationManager implements Runnable {
             for(Server s: scheduler.getServers()){
                 avgWaitingTime += s.getWaitingTime();
             }
-            window.display(scheduler.getServers(), avgWaitingTime/scheduler.getServers().size());
+            window.display(scheduler.getServers(), avgWaitingTime/scheduler.getServers().size(), currentTime);
             currentTime++;
             if(currentTime == this.timeLimit){
                 int max = 0;
@@ -79,7 +76,6 @@ public class SimulationManager implements Runnable {
             }
         }
         System.exit(0);
-        done = true;
     }
 
     public static void main(String[] args) {

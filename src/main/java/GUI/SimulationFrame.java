@@ -27,6 +27,7 @@ public class SimulationFrame extends JFrame{
     private JLabel[] waitingTime;
     private JLabel[][] tasks;
     private JLabel avgWaitingTime;
+    private JLabel currentTime;
 
     public SimulationFrame(){
         this.panel = new JPanel(new GridBagLayout());
@@ -164,11 +165,14 @@ public class SimulationFrame extends JFrame{
         c.gridx = 0;
         avgWaitingTime = new JLabel();
         panel.add(avgWaitingTime, c);
+        c.gridx = servers.size()/2;
+        currentTime = new JLabel();
+        panel.add(currentTime, c);
         panel.validate();
         panel.repaint();
     }
 
-    public void display(ArrayList<Server> servers, int avgTime){
+    public void display(ArrayList<Server> servers, int avgTime, int time){
         for(int i = 0; i < waitingTime.length; i++){
             for(int j = 0; j <= 3; j++){
                 tasks[i][j].setText("");
@@ -187,6 +191,7 @@ public class SimulationFrame extends JFrame{
             }
         }
         avgWaitingTime.setText("Average waiting time: " + avgTime);
+        currentTime.setText("Current time: " + time);
         panel.validate();
         panel.repaint();
     }
